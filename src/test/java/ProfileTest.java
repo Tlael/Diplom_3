@@ -21,20 +21,20 @@ public class ProfileTest extends StartUp {
     @Before
     public void setUp() {
         startUp();
-        home = new HomePageObject(driver, 3);
-        login = new LoginPageObject(driver, 3);
-        profile = new ProfilePageObject(driver, 3);
+        home = new HomePageObject(driver);
+        login = new LoginPageObject(driver);
+        profile = new ProfilePageObject(driver);
 
-        driver.get(registerPageUrl);
-        register = new RegisterPageObject(driver, 3);
-        register.register(name, email, password);
+        driver.get(REGISTER_PAGE_URL);
+        register = new RegisterPageObject(driver);
+        register.register(NAME, EMAIL, PASSWORD);
     }
 
     @Test
     @DisplayName("Check ProfilePage")
     public void moveToAccountProfileFromHomePage() {
-        driver.get(loginPageUrl);
-        login.login(email, password);
+        driver.get(LOGIN_PAGE_URL);
+        login.login(EMAIL, PASSWORD);
         home.pressAccountProfileButton();
         assertTrue("Failed", profile.checkAccountProfileEnabled());
     }
@@ -42,8 +42,8 @@ public class ProfileTest extends StartUp {
     @Test
     @DisplayName("Check SingOut button")
     public void signOutButtonTest() {
-        driver.get(loginPageUrl);
-        login.login(email, password);
+        driver.get(LOGIN_PAGE_URL);
+        login.login(EMAIL, PASSWORD);
         home.pressAccountProfileButton();
         profile.signOut();
         String expectedURL = "https://stellarburgers.nomoreparties.site/login";
@@ -53,26 +53,26 @@ public class ProfileTest extends StartUp {
     @Test
     @DisplayName("Check logo redirect")
     public void moveToConstructorFromAccountProfileByLogo() {
-        driver.get(loginPageUrl);
-        login.login(email, password);
+        driver.get(LOGIN_PAGE_URL);
+        login.login(EMAIL, PASSWORD);
         home.pressAccountProfileButton();
         profile.pressStellarLogo();
-        assertEquals("Failed", homePageUrl, driver.getCurrentUrl());
+        assertEquals("Failed", HOME_PAGE_URL, driver.getCurrentUrl());
     }
 
     @Test
     @DisplayName("Check Constructor button")
     public void moveToConstructorFromAccountProfileByConstructorButton() {
-        driver.get(loginPageUrl);
-        login.login(email, password);
+        driver.get(LOGIN_PAGE_URL);
+        login.login(EMAIL, PASSWORD);
         home.pressAccountProfileButton();
         profile.pressConstructorButton();
-        assertEquals("Failed", homePageUrl, driver.getCurrentUrl());
+        assertEquals("Failed", HOME_PAGE_URL, driver.getCurrentUrl());
     }
 
     @After
     public void cleanUp() {
-        delete(email, password);
+        delete(EMAIL, PASSWORD);
         driver.quit();
     }
 }

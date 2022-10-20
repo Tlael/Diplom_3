@@ -7,64 +7,44 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class HomePageObject extends BasePageObject {
-    private final Actions actions = new Actions(driver);
     private final By loginButton = By.xpath("//button[text()='Войти в аккаунт']");
     private final By orderButton = By.xpath("//button[text()='Оформить заказ']");
 
     private final By bun = By.xpath("//span[text() = 'Булки']");
     private final By sauce = By.xpath("//span[text() = 'Соусы']");
     private final By filling = By.xpath("//span[text() = 'Начинки']");
+    private final By bunSelected = By.xpath("//span[text()='Булки']/..");
+    private final By sauceSelected = By.xpath("//span[text()='Соусы']/..");
+    private final By fillingSelected = By.xpath("//span[text()='Начинки']/..");
 
-    public HomePageObject(WebDriver driver, int timeoutDuration) {
-        super(driver, timeoutDuration);
+    public HomePageObject(WebDriver driver) {
+        super(driver);
     }
 
     public WebElement getOrderButton() {
         return driver.findElement(orderButton);
     }
 
-    private WebElement getBun() {
-        return driver.findElement(bun);
+    public String getBunClassName() {
+        driver.findElement(sauce).click();
+        driver.findElement(bun).click();
+        return driver.findElement(bunSelected).getAttribute("class");
     }
 
-    private WebElement getIngredient(String ingredient) {
-        return driver.findElement(By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']/ul[" + ingredient + "]/a[1]/img"));
+    public String getSauceClassName() {
+        driver.findElement(filling).click();
+        driver.findElement(sauce).click();
+        return driver.findElement(sauceSelected).getAttribute("class");
     }
 
-    private WebElement getSauce() {
-        return driver.findElement(sauce);
-    }
-
-    private WebElement getFilling() {
-        return driver.findElement(filling);
+    public String getFillingClassName() {
+        driver.findElement(sauce).click();
+        driver.findElement(filling).click();
+        return driver.findElement(fillingSelected).getAttribute("class");
     }
 
     private WebElement getLoginButton() {
         return driver.findElement(loginButton);
-    }
-
-    @Step("Press Bun button")
-    public void pressOnBuns() {
-        loadElement(getBun());
-        actions.moveToElement(getBun()).click().perform();
-    }
-
-    @Step("Check visibility")
-    public Boolean checkIngredientDisplayed(String ingredient) {
-        loadElement(getIngredient(ingredient));
-        return getIngredient(ingredient).isDisplayed();
-    }
-
-    @Step("Press Sauce button")
-    public void pressOnSauce() {
-        loadElement(getSauce());
-        actions.moveToElement(getSauce()).click().perform();
-    }
-
-    @Step("Press Filling button")
-    public void pressOnFilling() {
-        loadElement(getFilling());
-        actions.moveToElement(getFilling()).click().perform();
     }
 
     @Step("Press Login button")

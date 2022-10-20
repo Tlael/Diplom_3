@@ -18,33 +18,33 @@ public class RegistrationTest extends StartUp {
     @Before
     public void setUp() {
         startUp();
-        register = new RegisterPageObject(driver, 3);
-        login = new LoginPageObject(driver, 3);
+        register = new RegisterPageObject(driver);
+        login = new LoginPageObject(driver);
         deleteNeeded = true;
     }
 
     @Test
     @DisplayName("Check registration (correct pass)")
     public void correctRegistrationTest() {
-        driver.get(registerPageUrl);
-        register.register(name, email, password);
-        assertTrue("Failed", register.checkRegister(email, password));
+        driver.get(REGISTER_PAGE_URL);
+        register.register(NAME, EMAIL, PASSWORD);
+        assertTrue("Failed", register.checkRegister(EMAIL, PASSWORD));
     }
 
     @Test
     @DisplayName("Check registration (wrong pass)")
     public void wrongPassRegisterTest() {
         deleteNeeded = false;
-        driver.get(registerPageUrl);
-        register.register(name, email, wrongPassword);
+        driver.get(REGISTER_PAGE_URL);
+        register.register(NAME, EMAIL, WRONG_PASSWORD);
         register.pressLogin();
-        assertFalse("Failed", register.checkRegister(email, password));
+        assertFalse("Failed", register.checkRegister(EMAIL, PASSWORD));
     }
 
     @After
     public void cleanUp() {
         if (deleteNeeded) {
-            delete(email, password);
+            delete(EMAIL, PASSWORD);
         }
         driver.quit();
     }

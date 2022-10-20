@@ -11,8 +11,8 @@ public class LoginPageObject extends BasePageObject {
     private final By password = By.xpath("//input[@name='Пароль']");
     private final By login = By.xpath("//button[text()='Войти']");
 
-    public LoginPageObject(WebDriver driver, int timeoutDuration) {
-        super(driver, timeoutDuration);
+    public LoginPageObject(WebDriver driver) {
+        super(driver);
     }
 
     private WebElement getEmail() {
@@ -39,7 +39,7 @@ public class LoginPageObject extends BasePageObject {
     @Step("Check success login")
     public Boolean checkLogin() {
         pressStellarLogo();
-        HomePageObject home = new HomePageObject(driver, 3);
+        HomePageObject home = new HomePageObject(driver);
 
         try {
             return home.getOrderButton().isDisplayed();

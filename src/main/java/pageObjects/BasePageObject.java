@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.lang.model.element.Element;
 import java.time.Duration;
 
 public class BasePageObject {
@@ -17,9 +16,9 @@ public class BasePageObject {
     protected final By constructorButton = By.xpath("//p[text()='Конструктор']/..");
     protected final By accountProfileButton = By.xpath("//p[text()='Личный Кабинет']/..");
 
-    public BasePageObject(WebDriver driver, int timeoutDuration) {
+    public BasePageObject(WebDriver driver) {
         this.driver = driver;
-        this.timeoutDuration = timeoutDuration;
+        timeoutDuration = 3;
     }
 
     protected void loadElement(WebElement waitElement) {
@@ -46,9 +45,8 @@ public class BasePageObject {
 
     @Step("Press logo")
     public void pressStellarLogo() {
-        WebElement e = driver.findElement(logo);
-        loadElement(e);
-        e.click();
+        loadElement(driver.findElement(logo));
+        driver.findElement(logo).click();
     }
 
     @Step("Press Constructor button")

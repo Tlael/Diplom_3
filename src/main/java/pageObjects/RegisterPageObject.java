@@ -12,8 +12,8 @@ public class RegisterPageObject extends BasePageObject {
     private final By register = By.xpath("//button[text()='Зарегистрироваться']");
     private final By login = By.xpath("//a[text() = 'Войти']");
 
-    public RegisterPageObject(WebDriver driver, int timeoutDuration) {
-        super(driver, timeoutDuration);
+    public RegisterPageObject(WebDriver driver) {
+        super(driver);
     }
 
     private WebElement getName() {
@@ -47,7 +47,7 @@ public class RegisterPageObject extends BasePageObject {
 
     @Step("Check success register")
     public Boolean checkRegister(String email, String password) {
-        LoginPageObject login = new LoginPageObject(driver, 3);
+        LoginPageObject login = new LoginPageObject(driver);
         login.login(email, password);
         return login.checkLogin();
     }

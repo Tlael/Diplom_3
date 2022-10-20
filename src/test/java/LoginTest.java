@@ -20,54 +20,54 @@ public class LoginTest extends StartUp {
     @Before
     public void setUp() {
         startUp();
-        home = new HomePageObject(driver, 3);
-        login = new LoginPageObject(driver, 3);
-        forgot = new ForgotPageObject(driver, 3);
+        home = new HomePageObject(driver);
+        login = new LoginPageObject(driver);
+        forgot = new ForgotPageObject(driver);
 
-        driver.get(registerPageUrl);
-        register = new RegisterPageObject(driver, 3);
-        register.register(name, email, password);
+        driver.get(REGISTER_PAGE_URL);
+        register = new RegisterPageObject(driver);
+        register.register(NAME, EMAIL, PASSWORD);
     }
 
     @Test
     @DisplayName("HomePage login")
     public void loginFromAccountProfileButton() {
-        driver.get(homePageUrl);
+        driver.get(HOME_PAGE_URL);
         home.pressLogInButton();
-        login.login(email, password);
+        login.login(EMAIL, PASSWORD);
         assertTrue("Failed", login.checkLogin());
     }
 
     @Test
     @DisplayName("Profile login")
     public void logInFromAccountProfileButton() {
-        driver.get(homePageUrl);
+        driver.get(HOME_PAGE_URL);
         home.pressAccountProfileButton();
-        login.login(email, password);
+        login.login(EMAIL, PASSWORD);
         assertTrue("Failed", login.checkLogin());
     }
 
     @Test
     @DisplayName("Registration login")
     public void logInFromRegistrationForm() {
-        driver.get(registerPageUrl);
+        driver.get(REGISTER_PAGE_URL);
         register.pressLogin();
-        login.login(email, password);
+        login.login(EMAIL, PASSWORD);
         assertTrue("Failed", login.checkLogin());
     }
 
     @Test
     @DisplayName("ForgotPass login")
     public void logInFromForgotPassPageLink() {
-        driver.get(forgotPassUrl);
+        driver.get(FORGOT_PASS_URL);
         forgot.pressLogInLink();
-        login.login(email, password);
+        login.login(EMAIL, PASSWORD);
         assertTrue("Failed", login.checkLogin());
     }
 
     @After
     public void cleanUp() {
-        delete(email, password);
+        delete(EMAIL, PASSWORD);
         driver.quit();
     }
 }

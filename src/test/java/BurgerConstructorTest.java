@@ -5,7 +5,7 @@ import org.junit.Test;
 import pageObjects.HomePageObject;
 import tools.StartUp;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class BurgerConstructorTest extends StartUp {
     HomePageObject home;
@@ -13,31 +13,31 @@ public class BurgerConstructorTest extends StartUp {
     @Before
     public void setUp() {
         startUp();
-        home = new HomePageObject(driver, 3);
+        home = new HomePageObject(driver);
     }
 
     @Test
     @DisplayName("Check Buns")
     public void bunsTabTest() {
-        driver.get(homePageUrl);
-        home.pressOnBuns();
-        assertTrue("Failed", home.checkIngredientDisplayed(bun));
+        driver.get(HOME_PAGE_URL);
+        String classNameAfterSelected = new HomePageObject(driver).getBunClassName();
+        assertEquals(home.getBunClassName(), classNameAfterSelected);
     }
 
     @Test
     @DisplayName("Check sauce")
     public void sauceTabTest() {
-        driver.get(homePageUrl);
-        home.pressOnSauce();
-        assertTrue("Failed", home.checkIngredientDisplayed(sauce));
+        driver.get(HOME_PAGE_URL);
+        String classNameAfterSelected = new HomePageObject(driver).getSauceClassName();
+        assertEquals(home.getSauceClassName(), classNameAfterSelected);
     }
 
     @Test
     @DisplayName("Check filling")
     public void fillingTabTest() {
-        driver.get(homePageUrl);
-        home.pressOnFilling();
-        assertTrue("Failed", home.checkIngredientDisplayed(filling));
+        driver.get(HOME_PAGE_URL);
+        String classNameAfterSelected = new HomePageObject(driver).getFillingClassName();
+        assertEquals(home.getFillingClassName(), classNameAfterSelected);
     }
 
     @After

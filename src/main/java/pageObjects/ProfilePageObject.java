@@ -2,7 +2,6 @@ package pageObjects;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -10,8 +9,8 @@ public class ProfilePageObject extends BasePageObject {
     private final By profile = By.xpath("//a[text()='Профиль']");
     private final By signOut = By.xpath("//button[text()='Выход']");
 
-    public ProfilePageObject(WebDriver driver, int timeoutDuration) {
-        super(driver, timeoutDuration);
+    public ProfilePageObject(WebDriver driver) {
+        super(driver);
     }
 
     public WebElement getProfile() {
@@ -34,10 +33,6 @@ public class ProfilePageObject extends BasePageObject {
     public Boolean checkAccountProfileEnabled() {
         doRedirect("account/profile");
         loadElement(getProfile());
-        try {
-            return getProfile().isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        return getProfile().isDisplayed();
     }
 }
